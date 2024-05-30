@@ -42,6 +42,7 @@ int main(int argc, char *argv[]) {
   current[4 * cols + 6] = 1;
   current[3 * cols + 6] = 1;
 
+  SetConfigFlags(FLAG_WINDOW_RESIZABLE);
   InitWindow(WIDTH, HEIGHT, "Game of Life");
   SetTargetFPS(30);
 
