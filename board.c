@@ -1,5 +1,12 @@
+/*
+ * Aidan Carey
+ * May 29th 2024
+ * board.c
+ */
+
 #include "stdio.h"
 #include "board.h"
+#include "raylib.h"
 
 // Fill a board with 0s
 void init_board(int board[][COLS]) {
@@ -71,6 +78,17 @@ void move_board(int src[][COLS], int dst[][COLS]) {
   for (int i = 0; i < ROWS; ++i) {
     for (int j = 0; j < COLS; ++j) {
       dst[i][j] = src[i][j];
+    }
+  }
+}
+
+// Draw the board on the screen
+void draw_board(int board[][COLS], int screen_width, int screen_height) {
+  for (int i = 0; i < ROWS; i++) {
+    for (int j = 0; j < COLS; j++) {
+      if (!board[i][j]) continue;
+      
+      DrawRectangle(i * (screen_width/ROWS), j * (screen_height/COLS), screen_width/ROWS, screen_height/COLS, WHITE);
     }
   }
 }
