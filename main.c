@@ -5,6 +5,7 @@
  */
 
 #include "stdio.h"
+#include "stdlib.h"
 #include "raylib.h"
 
 #include "board.h"
@@ -23,21 +24,24 @@ int main(int argc, char *argv[]) {
     say("usage: %s Rows Columns", argv[0]);
     return 1;
   }
+
+  // TODO: Convert args to number
+  int rows = 50;
+  int cols = 50;
   
-  // TODO: Take input for rows and cols
-  int current[ROWS][COLS];
-  int next[ROWS][COLS];
+  int *current = malloc(rows * cols * sizeof(current));
+  int *next = malloc(rows * cols * sizeof(next));
 
   // Initialize boards with 0s
   init_board(current);
   init_board(next);
 
   // Create a glider
-  current[5][5] = 1;
-  current[4][4] = 1;
-  current[5][6] = 1;
-  current[4][6] = 1;
-  current[3][6] = 1;
+  current[5 * cols + 5] = 1;
+  current[4 * cols + 4] = 1;
+  current[5 * cols + 6] = 1;
+  current[4 * cols + 6] = 1;
+  current[3 * cols + 6] = 1;
 
   InitWindow(WIDTH, HEIGHT, "Game of Life");
   SetTargetFPS(30);
@@ -76,7 +80,7 @@ int main(int argc, char *argv[]) {
       int cell_j = mouse_y / (screen_height / COLS);
 
       // Invert clicked cell
-      current[cell_i][cell_j] = !current[cell_i][cell_j];
+      current[cell_i * cols + cell_j] = !current[cell_i * cols + cell_j];
     }
 
     // Update the board if not paused
@@ -84,9 +88,10 @@ int main(int argc, char *argv[]) {
       update_board(current, next);
       move_board(next, current);
     }
-
-    
   }
+
+  free(current);
+  free(next);
   
   CloseWindow();
   
