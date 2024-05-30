@@ -88,7 +88,8 @@ void draw_board(int board[][COLS], int screen_width, int screen_height) {
     for (int j = 0; j < COLS; j++) {
       if (!board[i][j]) continue;
       
-      DrawRectangle(i * (screen_width/ROWS), j * (screen_height/COLS), screen_width/ROWS, screen_height/COLS, WHITE);
+      DrawRectangle(i * (screen_width/ROWS), j * (screen_height/COLS),
+                    screen_width/ROWS, screen_height/COLS, WHITE);
     }
   }
 }

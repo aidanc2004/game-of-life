@@ -39,15 +39,20 @@ int main() {
   int step = 0;
   
   while (!WindowShouldClose()) {
-    if (!paused) step++;
-    
     int screen_width = GetScreenWidth();
     int screen_height = GetScreenHeight();
+
+    // Only step if not paused
+    if (!paused) step++;
     
+    // Draw to the screen
     BeginDrawing();
 
     ClearBackground(BLACK);
     draw_board(current, screen_width, screen_height);
+
+    // Show text if paused
+    if (paused) DrawText("Paused", 10, screen_height - 30, 20, GRAY);
     
     EndDrawing();
     
@@ -56,11 +61,26 @@ int main() {
       paused = !paused;
     }
 
+    // Click to place/remove a cell
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+      int mouse_x = GetMouseX();
+      int mouse_y = GetMouseY();
+
+      // Clicked cell position
+      int cell_i = mouse_x / (screen_width / ROWS);
+      int cell_j = mouse_y / (screen_height / COLS);
+
+      // Invert clicked cell
+      current[cell_i][cell_j] = !current[cell_i][cell_j];
+    }
+
     // Update the board if not paused
     if (!paused && step % 2) {
       update_board(current, next);
       move_board(next, current);
     }
+
+    
   }
   
   CloseWindow();
