@@ -31,28 +31,36 @@ int main() {
   current[5][6] = 1;
   current[4][6] = 1;
   current[3][6] = 1;
-  
+
   InitWindow(WIDTH, HEIGHT, "Game of Life");
-  SetTargetFPS(5);
+  SetTargetFPS(30);
+
+  int paused = 0;
+  int step = 0;
   
   while (!WindowShouldClose()) {
+    if (!paused) step++;
+    
     int screen_width = GetScreenWidth();
     int screen_height = GetScreenHeight();
     
     BeginDrawing();
 
     ClearBackground(BLACK);
-    
     draw_board(current, screen_width, screen_height);
     
     EndDrawing();
+    
+    // Press space to pause
+    if (IsKeyPressed(KEY_SPACE)) {
+      paused = !paused;
+    }
 
-    // Update the board
-    update_board(current, next);
-    move_board(next, current);
-
-    // Wait for user input
-    //getchar();
+    // Update the board if not paused
+    if (!paused && step % 2) {
+      update_board(current, next);
+      move_board(next, current);
+    }
   }
   
   CloseWindow();
