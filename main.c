@@ -13,10 +13,17 @@
 #define WIDTH 800
 #define HEIGHT 800
 
-// Print with newline
+// Port favourite perl subrountines as C macros
 #define say(fmt, ...) printf(fmt "\n", ##__VA_ARGS__)
+#define unless(cond) if (!(cond))
 
-int main() {
+int main(int argc, char *argv[]) {
+  // Check for rows and columns input
+  unless (argc == 3) {
+    say("usage: %s Rows Columns", argv[0]);
+    return 1;
+  }
+  
   // TODO: Take input for rows and cols
   int current[ROWS][COLS];
   int next[ROWS][COLS];
@@ -57,9 +64,7 @@ int main() {
     EndDrawing();
     
     // Press space to pause
-    if (IsKeyPressed(KEY_SPACE)) {
-      paused = !paused;
-    }
+    if (IsKeyPressed(KEY_SPACE)) paused = !paused;
 
     // Click to place/remove a cell
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
