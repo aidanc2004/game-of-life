@@ -25,6 +25,7 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
+  // Get rows and cols from input
   int rows = atoi(argv[1]);
   int cols = atoi(argv[2]);
   
@@ -42,6 +43,7 @@ int main(int argc, char *argv[]) {
   current[4 * cols + 6] = 1;
   current[3 * cols + 6] = 1;
 
+  // Create window
   SetConfigFlags(FLAG_WINDOW_RESIZABLE);
   InitWindow(WIDTH, HEIGHT, "Game of Life");
   SetTargetFPS(30);
@@ -90,6 +92,7 @@ int main(int argc, char *argv[]) {
     }
   }
 
+  // Clean up
   free(current);
   free(next);
   
