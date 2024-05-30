@@ -25,16 +25,15 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  // TODO: Convert args to number
-  int rows = 50;
-  int cols = 50;
+  int rows = atoi(argv[1]);
+  int cols = atoi(argv[2]);
   
   int *current = malloc(rows * cols * sizeof(current));
   int *next = malloc(rows * cols * sizeof(next));
 
   // Initialize boards with 0s
-  init_board(current);
-  init_board(next);
+  init_board(current, rows, cols);
+  init_board(next, rows, cols);
 
   // Create a glider
   current[5 * cols + 5] = 1;
@@ -60,7 +59,7 @@ int main(int argc, char *argv[]) {
     BeginDrawing();
 
     ClearBackground(BLACK);
-    draw_board(current, screen_width, screen_height);
+    draw_board(current, screen_width, screen_height, rows, cols);
 
     // Show text if paused
     if (paused) DrawText("Paused", 10, screen_height - 30, 20, GRAY);
@@ -76,8 +75,8 @@ int main(int argc, char *argv[]) {
       int mouse_y = GetMouseY();
 
       // Clicked cell position
-      int cell_i = mouse_x / (screen_width / ROWS);
-      int cell_j = mouse_y / (screen_height / COLS);
+      int cell_i = mouse_x / (screen_width / rows);
+      int cell_j = mouse_y / (screen_height / cols);
 
       // Invert clicked cell
       current[cell_i * cols + cell_j] = !current[cell_i * cols + cell_j];
@@ -85,8 +84,8 @@ int main(int argc, char *argv[]) {
 
     // Update the board if not paused
     if (!paused && step % 2) {
-      update_board(current, next);
-      move_board(next, current);
+      update_board(current, next, rows, cols);
+      move_board(next, current, rows, cols);
     }
   }
 

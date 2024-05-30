@@ -7,17 +7,14 @@
 #ifndef BOARD_H
 #define BOARD_H
 
-#define ROWS 50
-#define COLS 50
-
-void init_board(int *board);
-void print_board(int *board);
-int check_neighbors(int *board, int i, int j);
-int is_alive(int *board, int i, int j);
-int in_bounds(int i, int j);
-int update_cell(int *board, int i, int j);
-void update_board(int *current, int *next);
-void move_board(int *src, int *dst);
-void draw_board(int *board, int screen_width, int screen_height);
+void init_board(int *board, int rows, int cols);
+void print_board(int *board, int rows, int cols);
+int check_neighbors(int *board, int i, int j, int rows, int cols);
+int is_alive(int *board, int i, int j, int rows, int cols);
+int in_bounds(int i, int j, int rows, int cols);
+int update_cell(int *board, int i, int j, int rows, int cols);
+void update_board(int *current, int *next, int rows, int cols);
+void move_board(int *src, int *dst, int rows, int cols);
+void draw_board(int *board, int screen_width, int screen_height, int rows, int cols);
 
 #endif
