@@ -14,14 +14,14 @@
 #define WIDTH 800
 #define HEIGHT 800
 
-// Port favourite perl subrountines as C macros
+// Perl inspired subroutines
 #define say(fmt, ...) printf(fmt "\n", ##__VA_ARGS__)
 #define unless(cond) if (!(cond))
 
 int main(int argc, char *argv[]) {
   // Check for rows and columns input
   unless (argc == 3) {
-    say("usage: %s Rows Columns", argv[0]);
+    say("usage: %s ROWS COLUMNS", argv[0]);
     return 1;
   }
 
